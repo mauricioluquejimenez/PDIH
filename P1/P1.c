@@ -163,6 +163,65 @@ void pausa(){
   int86(0x16, &inregs, &outregs);
 }
 
+/*
+* @brief Dibujo de un recuadro en modo texto
+* @param col_si: Coordenada superior izquierda del recuadro
+* @param row_si: Coordenada superior izquierda del recuadro
+* @param col_id: Coordenada inferior derecha del recuadro
+* @param row_id: Coordenada inferior derecha del recuadro
+* @param text_color: Color del texto que rellena el recuadro
+* @param back_color: Color del fondo del recuadro
+*/
+
+void recuadro(int col_si, int row_si, int col_id, int row_id, char text_color, char back_color){
+  int i, j;
+
+  textcolor(text_color);
+  textbackground(back_color);
+
+  for(i = row_si; i <= row_id; i++){
+    for(j = col_si; j <= col_id; j++){
+      gotoxy(j,i);
+      cputchar('*');
+    }
+  }
+}
+
+void CGA(){
+  int i, j;
+
+  setvideomode(4);
+  printf("\n Modo grafico CGA activado");
+  printf("\n");
+
+  for(i = 3; i <= 15; i++){
+    textcolor(texto + 1);
+    textbackground(fondo + 2);
+
+    for(j = 0; j < 10; j++){
+      gotoxy(i + 2 * j, i);
+      cputchar('*');
+    }
+  }
+}
+
+/*
+* @brief Dibujos de estilo "ASCII art" impresos por pantalla
+*/
+void ascii(){
+  textcolor(2);
+
+  printf("\n Ahora... un oso viendo a tres patos perseguir a un ciclista:                  ");
+  printf("\n                                                                               ");
+  printf("\n       ()  ()                                                                  ");
+  printf("\n       ( -.-)                   _          _          _                 ___o   ");
+  printf("\n      /|(   )                __(.)<     __(.)>     __(.)=          __  | <__   ");
+  printf("\n _____o_(')(')__________|   /____)     /____)     /____)      ____(__)/__(__)  ");
+  printf("\n                        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/                 ");
+  printf("\n                        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/                  ");
+  printf("\n                                                                               ");
+}
+
 int main(){
 
 	int funcion;
@@ -177,6 +236,9 @@ int main(){
 	printf("\n    7: clrsrc()");
 	printf("\n    8: cputchar()");
 	printf("\n    9: getche()");
+	printf("\n    10: recuadro()");
+	printf("\n    11: CGA()");
+	printf("\n    12: ascii()");
 	printf("\n    Otra tecla: finalizar programa \n");
 
   printf("\n Elija una de las anteriores funciones: ");
@@ -249,6 +311,18 @@ int main(){
 	    pausa();
 
 	    printf("\n Ha pulsado: %c", tecla);
+	    break;
+
+	  case 10:
+	    recuadro(50, 15, 75, 25, 1, 4);
+	    break;
+
+	  case 11:
+	    CGA();
+	    break;
+
+	  case 12:
+	    ascii();
 	    break;
 	}
 
