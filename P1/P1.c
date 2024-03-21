@@ -187,6 +187,10 @@ void recuadro(int col_si, int row_si, int col_id, int row_id, char text_color, c
   }
 }
 
+/*
+* @brief Función que cambia el modo de vídeo al modo gráfico al CGA y hace un dibujo sencillo
+*/
+
 void CGA(){
   int i, j;
 
