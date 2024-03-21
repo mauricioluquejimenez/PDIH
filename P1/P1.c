@@ -4,6 +4,11 @@
 unsigned char fondo = 0;
 unsigned char texto = 15;
 
+/*
+* @brief Colocar el cursor en una posición determinada
+* @param row: coordenada X
+* @param col: coordenada Y
+*/
 void gotoxy(int row, int col){
 	union REGS inregs, outregs;
 
@@ -16,6 +21,10 @@ void gotoxy(int row, int col){
 	int86(0x10, &inregs, &outregs);
 }
 
+/*
+* @brief Fijar el aspecto del cursor
+* @param tipo: aspecto del cursor
+*/
 void setcursortype(char tipo){
 	union REGS inregs, outregs;
 
@@ -37,6 +46,10 @@ void setcursortype(char tipo){
 	int86(0x10, &inregs, &outregs);
 }
 
+/*
+* @brief Fijar el modo de vídeo
+* @param modo: relación de aspecto de la pantalla
+*/
 void setvideomode(char modo){
 	union REGS inregs, outregs;
 
@@ -46,6 +59,10 @@ void setvideomode(char modo){
 	int86(0x10, &inregs, &outregs);
 }
 
+/*
+* @brief Obtener y mostrar el modo de vídeo actual
+* @return outregs.h.al: registro que contiene el modo de vídeo actual
+*/
 int getvideomode(){
   union REGS inregs, outregs;
 
@@ -55,14 +72,25 @@ int getvideomode(){
   return outregs.h.al;
 }
 
+/*
+* @brief Cambiar la variable global del color del texto
+* @param color: valor a asignar a la variable global
+*/
 void textcolor(char color){
   texto = color;
 }
 
+/*
+* @brief Cambiar la variable global del color del fondo
+* @param color: valor a asignar a la variable global
+*/
 void textbackground(char color){
 	fondo = color;
 }
 
+/*
+* @brief Borrar y despejar toda la pantalla
+*/
 void clrsrc(){
   union REGS inregs, outregs;
 
@@ -80,6 +108,10 @@ void clrsrc(){
   int86(0x10, &inregs, &outregs);
 }
 
+/*
+* @brief Escribir un carácter en pantalla
+* @param c: carácter a mostrar por pantalla
+*/
 void cputchar(char c){
   union REGS inregs, outregs;
 
@@ -94,8 +126,10 @@ void cputchar(char c){
   int86(0x10, &inregs, &outregs);
 }
 
-/* Mostrando la tecla en el momento en el que se pulsa */
-
+/*
+* @brief Obtener un carácter mediante entrada de teclado y mostrarlo por pantalla
+* @return outregs.h.al: registro que contiene el carácter leído por teclado
+*/
 char getche(){
 	union REGS inregs, outregs;
 
@@ -105,7 +139,9 @@ char getche(){
 	return outregs.h.al;
 }
 
-/* Sin mostrar la tecla en el momento en el que se pulsa
+/*
+* @brief Obtener un carácter mediante entrada de teclado
+* @return outregs.h.al: registro que contiene el carácter leído por teclado
 
 char getche(){
   union REGS inregs, outregs;
@@ -116,9 +152,11 @@ char getche(){
 
   return outregs.h.al;
 }
-
 */
 
+/*
+* @brief Hacer una pausa posterior a una entrada de teclado
+*/
 void pausa(){
   union REGS inregs, outregs;
   inregs.h.ah = 0;
