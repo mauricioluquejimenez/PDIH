@@ -50,7 +50,7 @@ void setcursortype(char tipo){
 * @brief Fijar el modo de vídeo
 * @param modo: relación de aspecto de la pantalla
 */
-void setvideomode(char modo){
+void setvideomode(BYTE modo){
 	union REGS inregs, outregs;
 
 	inregs.h.ah = 0;
