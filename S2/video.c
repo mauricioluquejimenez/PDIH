@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <dos.h>
 
+/*
+* @brief Fijar el modo de vídeo
+* @param modo: relación de aspecto de la pantalla
+*/
 void setvideomode_S2(char modo){
   union REGS inregs, outregs;
 
